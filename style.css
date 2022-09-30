@@ -1,4 +1,5 @@
-/* **************UNIVERSAL STYLE************** */
+/* =============UNIVERSAL SELECTION============= */
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +8,8 @@
   box-sizing: border-box;
 }
 
+/* =================GENERAL STYLES================= */
+
 html {
   font-size: 62.5%; /* 16px of 100% === 10px of 62.5%*/
 }
@@ -14,12 +17,12 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   color: #444;
-  background-color: #eeeeee;
+  background-color: #f3f3f3;
   height: 100vh;
   padding: 2rem;
 }
 
-/* **************NAVBAR STYLE************** */
+/* ================NAVBAR STYLES================ */
 
 nav {
   display: flex;
@@ -57,7 +60,7 @@ nav {
   font-size: 1.6rem;
   font-family: inherit;
   text-align: center;
-  width: 20rem; /* 15rem */
+  width: 20rem;
   border-radius: 10rem;
   margin-right: 1rem;
   color: inherit;
@@ -88,7 +91,7 @@ nav {
   color: #777;
 }
 
-/* **************HERO SECTION STYLE************** */
+/* ===============HREO SECTION STYLES=============== */
 
 .app {
   position: relative;
@@ -99,12 +102,12 @@ nav {
   grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
 
-  /* Login Animation */
+  /* LOGIN ANIMATION */
   opacity: 0;
   transition: all 0.3s;
 }
 
-/* BALANCE STYLE */
+/* =====BALANCE STYLES===== */
 
 .balance {
   grid-column: 1 / span 2;
@@ -130,7 +133,7 @@ nav {
   font-weight: 400;
 }
 
-/* MOVEMENTS STYLE */
+/* =====MOVEMENTS STYLES===== */
 
 .movements {
   grid-row: 2 / span 3;
@@ -175,7 +178,7 @@ nav {
   margin-left: auto;
 }
 
-/* SUMMARY STYLE */
+/* =====SUMMARY STYLES===== */
 
 .summary {
   grid-row: 5/6;
@@ -206,7 +209,7 @@ nav {
   color: #06373a;
 }
 
-/* SORT BUTTON STYLE */
+/* =====SORT BUTTON STYLES===== */
 
 .btn-sort {
   margin-left: auto;
@@ -218,7 +221,7 @@ nav {
   cursor: pointer;
 }
 
-/* OPERATION STYLE */
+/* =====OPERATION STYLES===== */
 
 .operation {
   border-radius: 1rem;
@@ -238,7 +241,7 @@ nav {
   background-color: #f6bd60;
 }
 
-/* SECONDARY HEADER STYLE */
+/* =====SECONDARY HEADER STYLES===== */
 
 h2 {
   margin-bottom: 1.5rem;
@@ -247,7 +250,7 @@ h2 {
   color: #333;
 }
 
-/* FORM STYLE */
+/* =====FORM STYLES===== */
 
 .form {
   display: grid;
@@ -297,7 +300,7 @@ h2 {
   background-color: rgba(255, 255, 255, 0.75);
 }
 
-/* TIMER STYLE */
+/* =====TIMER STYLES===== */
 
 .logout-timer {
   padding: 0 0.3rem;
@@ -310,7 +313,7 @@ h2 {
   font-weight: 600;
 }
 
-/* **************FOOTER STYLE************** */
+/*=================FOOTER STYLES================= */
 
 footer {
   text-align: center;

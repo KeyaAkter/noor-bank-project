@@ -71,6 +71,7 @@ const accounts = [
 /////////////////////////////////////////////////////////////
 // ELEMENTS
 /////////////////////////////////////////////////////////////
+
 const labelNav = document.querySelector("nav");
 const labelLogoMsg = document.querySelector(".welcome-logo");
 const labelMsg = document.querySelector(".login-msg");
@@ -101,36 +102,19 @@ const inputCloseUsername = document.querySelector(".form-input-username");
 const inputClosePassword = document.querySelector(".form-input-password");
 
 ///////////////////////////////////////////////////////////////
-// UPDATE NAVBAR
+// CREATE USERNAMES
 ///////////////////////////////////////////////////////////////
-function updatedNav() {
-  labelNav.style.justifyContent = "space-between";
-  labelLogoMsg.style.flexDirection = "row-reverse";
-  labelLogoMsg.style.justifyContent = "space-between";
-  labelLogoMsg.style.gap = "50rem";
-  labelLogo.style.height = "6rem";
+
+function creatUserNames(accounts) {
+  accounts.forEach((account) => {
+    account.username = account.owner
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.at(0))
+      .join("");
+  });
 }
-
-///////////////////////////////////////////////////////////////
-// UPDATE UI
-///////////////////////////////////////////////////////////////
-
-function updateUI(currentAccount) {
-  displayMovements(currentAccount);
-  displaySummary(currentAccount);
-  displayBalance(currentAccount);
-}
-
-///////////////////////////////////////////////////////////////
-// FORMATTING CURRENCY
-///////////////////////////////////////////////////////////////
-
-function formatCurrency(value, locale, currency) {
-  return new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: currency,
-  }).format(value);
-}
+creatUserNames(accounts);
 
 ///////////////////////////////////////////////////////////////
 // DAYS CALCULATION
@@ -154,19 +138,42 @@ function formatMoveDate(date, locale) {
 }
 
 ///////////////////////////////////////////////////////////////
-// IMPLEMENTING USERNAME
+// FORMATTING CURRENCIES
 ///////////////////////////////////////////////////////////////
 
-function creatUserNames(accounts) {
-  accounts.forEach((account) => {
-    account.username = account.owner
-      .toLowerCase()
-      .split(" ")
-      .map((word) => word.at(0))
-      .join("");
-  });
+function formatCurrency(value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
 }
-creatUserNames(accounts);
+
+///////////////////////////////////////////////////////////////
+// UPDATE NAVBAR
+///////////////////////////////////////////////////////////////
+
+function updatedNav() {
+  labelNav.style.justifyContent = "space-between";
+  labelLogoMsg.style.flexDirection = "row-reverse";
+  labelLogoMsg.style.justifyContent = "space-between";
+  labelLogoMsg.style.gap = "50rem";
+  labelLogo.style.height = "6rem";
+}
+
+///////////////////////////////////////////////////////////////
+// UPDATE UI
+///////////////////////////////////////////////////////////////
+
+function updateUI(currentAccount) {
+  // DISPLAY MOVEMENTS
+  displayMovements(currentAccount);
+
+  // DISPLAY BALANCE
+  displayBalance(currentAccount);
+
+  // DISPLAY SUMMARY
+  displaySummary(currentAccount);
+}
 
 ///////////////////////////////////////////////////////////////
 // IMPLEMENTING LOGIN
@@ -182,14 +189,13 @@ btnLogin.addEventListener("click", function (event) {
 
   if (currentAccount?.password === Number(inputLoginPassword.value)) {
     setTimeout(() => {
-      //UPDATE NAV
+      // UPDATE NAV
       updatedNav();
 
-      // WELCOME MESSAGE
+      // DISPLAY WELCOME MESSAGE
       labelMsg.textContent = `Welcome Back, ${currentAccount.owner
         .split(" ")
         .at(0)}`;
-      containerApp.style.opacity = 1;
 
       // ADD CURRENT DATE & TIME
       const now = new Date();
@@ -207,11 +213,12 @@ btnLogin.addEventListener("click", function (event) {
         options
       ).format(now);
 
-      // LOGOUT TIMER
+      // DISPLAY LOGOUT TIMER
       if (timer) clearInterval(timer);
       timer = logOut();
 
-      // UPDATE UI
+      // DISPLAY UI
+      containerApp.style.opacity = 1;
       updateUI(currentAccount);
     }, 3000);
   } else {
@@ -219,7 +226,7 @@ btnLogin.addEventListener("click", function (event) {
       // UPDATE NAV
       updatedNav();
 
-      // WARNING MESSAGE
+      // DISPLAY WARNING MESSAGE
       labelMsg.textContent = "Login Failed!";
 
       // HIDE UI
@@ -227,13 +234,13 @@ btnLogin.addEventListener("click", function (event) {
     }, 3000);
   }
 
-  // CLEAR FIELDS
+  // CLEAR INPUT FIELDS
   inputLoginUsername.value = inputLoginPassword.value = "";
   inputLoginPassword.blur();
 });
 
 ///////////////////////////////////////////////////////////////
-//IMPLEMENTING MOVEMENTS
+// DISPLAY MOVEMENTS
 ///////////////////////////////////////////////////////////////
 
 function displayMovements(account, sort = false) {
@@ -268,7 +275,21 @@ function displayMovements(account, sort = false) {
 }
 
 ///////////////////////////////////////////////////////////////
-//IMPLEMENTING SUMMARY
+// DISPLAY BALANCE
+///////////////////////////////////////////////////////////////
+
+function displayBalance(account) {
+  account.balance = account.movements.reduce((acc, move) => acc + move, 0);
+
+  labelBalance.textContent = formatCurrency(
+    account.balance,
+    account.locale,
+    account.currency
+  );
+}
+
+///////////////////////////////////////////////////////////////
+// DISPLAY SUMMARY
 ///////////////////////////////////////////////////////////////
 
 function displaySummary(account) {
@@ -294,7 +315,7 @@ function displaySummary(account) {
     account.currency
   );
 
-  //INTEREST
+  //INTERESTS
   const interest = account.movements
     .filter((move) => move > 0)
     .map((deposit) => (deposit * account.interestRate) / 100)
@@ -303,20 +324,6 @@ function displaySummary(account) {
 
   labelSumInterest.textContent = formatCurrency(
     interest,
-    account.locale,
-    account.currency
-  );
-}
-
-///////////////////////////////////////////////////////////////
-//IMPLEMENTING BALANCE
-///////////////////////////////////////////////////////////////
-
-function displayBalance(account) {
-  account.balance = account.movements.reduce((acc, move) => acc + move, 0);
-
-  labelBalance.textContent = formatCurrency(
-    account.balance,
     account.locale,
     account.currency
   );
@@ -335,7 +342,7 @@ btnTransfer.addEventListener("click", function (event) {
 
   const amount = Number(inputTransferAmount.value);
 
-  // CLEAR FIELDS
+  // CLEAR INPUT FIELDS
   inputTransferTo.value = inputTransferAmount.value = "";
   inputTransferAmount.blur();
 
@@ -357,19 +364,20 @@ btnTransfer.addEventListener("click", function (event) {
       // UPDATE UI
       updateUI(currentAccount);
 
-      // SUCCESS MESSAGE
+      // DISPLAY SUCCESS MESSAGE
       labelMsg.textContent = "Transaction Successful!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // UPDATE LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
     setTimeout(() => {
+      // DISPLAY UNSUCCESSFUL MESSAGE
       labelMsg.textContent = "Transaction Failed!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // UPDATE LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
@@ -389,33 +397,34 @@ btnLoan.addEventListener("click", function (event) {
     currentAccount.movements.some((move) => move >= amount * 0.1)
   ) {
     setTimeout(() => {
-      // ADD POSITIVE MOVEMENT INTO CURRENT ACCOUNT
+      // ADD POSITIVE MOVEMENTS INTO CURRENT ACCOUNT
       currentAccount.movements.push(amount);
 
-      // ADD CURRENT DATE AND TIME
+      // ADD CURRENT DATE & TIME
       currentAccount.movementsDates.push(new Date().toISOString());
 
       // UPDATE UI
       updateUI(currentAccount);
 
-      // SUCCESS MESSAGE
+      // DISPLAY SUCCESS MESSAGE
       labelMsg.textContent = "Successful Loan!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
     setTimeout(() => {
+      // DISPLAY UNSUCCESSFUL MESSAGE
       labelMsg.textContent = "Unsuccessful Loan!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // DISPLAY LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
 
-  // CLEAR FIELDS
+  // CLEAR INPUT FIELDS
   inputLoanAmount.value = "";
   inputLoanAmount.blur();
 });
@@ -442,24 +451,25 @@ btnClose.addEventListener("click", function (e) {
       // HIDE UI
       containerApp.style.opacity = 0;
 
-      // DISPLAY MESSAGE
+      // DISPLAY DELETE MESSAGE
       labelMsg.textContent = "Account Deleted!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // DISPLAY LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
     setTimeout(() => {
+      // UPDATE MESSAGE
       labelMsg.textContent = "Delete Is Not Acceptable!";
     }, 3000);
 
-    //LOGOUT TIMER
+    // DISPLAY LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
 
-  // CLEAR FIELDS
+  // CLEAR INPUT FIELDS
   inputCloseUsername.value = inputClosePassword.value = "";
   inputClosePassword.blur();
 });
@@ -474,11 +484,11 @@ btnSort.addEventListener("click", function (e) {
   e.preventDefault();
 
   displayMovements(currentAccount, !sortedMove);
-  sortedMove = !sortedMove; // changing state after sorting
+  sortedMove = !sortedMove;
 });
 
 ///////////////////////////////////////////////////////////////
-// IMPLEMENTING TIMER
+// IMPLEMENTING LOGOUT TIMER
 ///////////////////////////////////////////////////////////////
 
 function logOut() {
@@ -510,3 +520,10 @@ function logOut() {
 
   return timer;
 }
+
+///////////////////////////////////////////////////////////////
+// COPYRIGHT YEAR
+///////////////////////////////////////////////////////////////
+
+document.querySelector(".copyright-year").textContent =
+  new Date().getFullYear();
