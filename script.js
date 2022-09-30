@@ -214,7 +214,7 @@ btnLogin.addEventListener("click", function (event) {
         options
       ).format(now);
 
-      // DISPLAY LOGOUT TIMER
+      // RESET LOGOUT TIMER
       if (timer) clearInterval(timer);
       timer = logOut();
 
@@ -415,7 +415,7 @@ btnLoan.addEventListener("click", function (event) {
       labelMsg.style.color = "#159947";
     }, 3000);
 
-    // LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
@@ -425,7 +425,7 @@ btnLoan.addEventListener("click", function (event) {
       labelMsg.style.color = "#f6bd60";
     }, 3000);
 
-    // DISPLAY LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
