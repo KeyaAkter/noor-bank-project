@@ -505,7 +505,7 @@ function logOut() {
     if (time === 0) {
       clearInterval(timer);
 
-      // UPDATE MESSAGE
+      // DISPLAY LOGOUT MESSAGE
       labelMsg.textContent = "You've been logged out!";
 
       // UPDATE UI

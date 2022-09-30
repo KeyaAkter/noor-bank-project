@@ -133,7 +133,7 @@ nav {
   font-weight: 400;
 }
 
-/* =====MOVEMENTS STYLES===== */
+/* =====MOVEMENT STYLES===== */
 
 .movements {
   grid-row: 2 / span 3;
@@ -209,7 +209,7 @@ nav {
   color: #06373a;
 }
 
-/* =====SORT BUTTON STYLES===== */
+/* =====SORTING STYLES===== */
 
 .btn-sort {
   margin-left: auto;
