@@ -196,6 +196,7 @@ btnLogin.addEventListener("click", function (event) {
       labelMsg.textContent = `Welcome Back, ${currentAccount.owner
         .split(" ")
         .at(0)}`;
+      labelMsg.style.color = "#159947";
 
       // ADD CURRENT DATE & TIME
       const now = new Date();
@@ -228,6 +229,7 @@ btnLogin.addEventListener("click", function (event) {
 
       // DISPLAY WARNING MESSAGE
       labelMsg.textContent = "Login Failed!";
+      labelMsg.style.color = "#f6bd60";
 
       // HIDE UI
       containerApp.style.opacity = 0;
@@ -349,15 +351,15 @@ btnTransfer.addEventListener("click", function (event) {
   if (
     amount > 0 &&
     amount <= currentAccount.balance &&
-    receiverAccount.username !== currentAccount.username &&
-    receiverAccount
+    receiverAccount &&
+    currentAccount.username !== receiverAccount.username
   ) {
     setTimeout(() => {
       // TRANSFER MONEY
       currentAccount.movements.push(-amount);
       receiverAccount.movements.push(amount);
 
-      // ADD CURRENT DATE & TIME
+      // ADD TRANSFER DATE & TIME
       currentAccount.movementsDates.push(new Date().toISOString());
       receiverAccount.movementsDates.push(new Date().toISOString());
 
@@ -366,18 +368,20 @@ btnTransfer.addEventListener("click", function (event) {
 
       // DISPLAY SUCCESS MESSAGE
       labelMsg.textContent = "Transaction Successful!";
+      labelMsg.style.color = "#159947";
     }, 3000);
 
-    // UPDATE LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
     setTimeout(() => {
-      // DISPLAY UNSUCCESSFUL MESSAGE
+      // DISPLAY WARNING MESSAGE
       labelMsg.textContent = "Transaction Failed!";
+      labelMsg.style.color = "#f6bd60";
     }, 3000);
 
-    // UPDATE LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
@@ -408,6 +412,7 @@ btnLoan.addEventListener("click", function (event) {
 
       // DISPLAY SUCCESS MESSAGE
       labelMsg.textContent = "Successful Loan!";
+      labelMsg.style.color = "#159947";
     }, 3000);
 
     // LOGOUT TIMER
@@ -415,8 +420,9 @@ btnLoan.addEventListener("click", function (event) {
     timer = logOut();
   } else {
     setTimeout(() => {
-      // DISPLAY UNSUCCESSFUL MESSAGE
+      // DISPLAY WARNING MESSAGE
       labelMsg.textContent = "Unsuccessful Loan!";
+      labelMsg.style.color = "#f6bd60";
     }, 3000);
 
     // DISPLAY LOGOUT TIMER
@@ -451,20 +457,22 @@ btnClose.addEventListener("click", function (e) {
       // HIDE UI
       containerApp.style.opacity = 0;
 
-      // DISPLAY DELETE MESSAGE
+      // DISPLAY SUCCESS MESSAGE
       labelMsg.textContent = "Account Deleted!";
+      labelMsg.style.color = "#159947";
     }, 3000);
 
-    // DISPLAY LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   } else {
     setTimeout(() => {
-      // UPDATE MESSAGE
+      // DISPLAY WARNING MESSAGE
       labelMsg.textContent = "Delete Is Not Acceptable!";
+      labelMsg.style.color = "#f6bd60";
     }, 3000);
 
-    // DISPLAY LOGOUT TIMER
+    // RESET LOGOUT TIMER
     if (timer) clearInterval(timer);
     timer = logOut();
   }
@@ -507,6 +515,7 @@ function logOut() {
 
       // DISPLAY LOGOUT MESSAGE
       labelMsg.textContent = "You've been logged out!";
+      labelMsg.style.color = "#f6bd60";
 
       // UPDATE UI
       containerApp.style.opacity = 0;
