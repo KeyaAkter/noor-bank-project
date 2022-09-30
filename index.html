@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Noor Bank - Ensuring welfare to people through banking business
+    </title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon" />
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CUSTOM STYLESHEET -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- SCRIPT FILE -->
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <!-- ============NAVIGATION============ -->
+    <nav>
+      <div class="welcome-logo">
+        <img class="logo" src="./images/logo.png" alt="Noor Bank Logo" />
+        <p class="login-msg">
+          <span class="welcome">Welcome!</span> <br />
+          Login to your account
+        </p>
+      </div>
+
+      <form class="login">
+        <input
+          class="login-input login-input-username"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          class="login-input login-input-password"
+          type="password"
+          placeholder="Password"
+        />
+        <button class="login-btn">Log In &rarr;</button>
+      </form>
+    </nav>
+
+    <!-- ==========MAIN SECTION========== -->
+
+    <main class="app">
+      <!-- BALANCE -->
+      <div class="balance">
+        <div>
+          <p class="balance-label">Current Balance</p>
+          <p class="balance-date">As of <span class="date">22/9/2022</span></p>
+        </div>
+        <p class="balance-value">1000$</p>
+      </div>
+
+      <!-- MOVEMENTS -->
+      <div class="movements"></div>
+
+      <!-- SUMMARY -->
+      <div class="summary">
+        <p class="summary-label">In</p>
+        <p class="summary-value summary-value-in">1000$</p>
+        <p class="summary-label">Out</p>
+        <p class="summary-value summary-value-out">1000$</p>
+        <p class="summary-label">Interest</p>
+        <p class="summary-value summary-value-interest">1000$</p>
+        <button class="btn-sort">Sort &downarrow;</button>
+      </div>
+
+      <!-- ======OPERATIONS====== -->
+
+      <!-- TRANSFERS -->
+      <div class="operation operation-transfer">
+        <h2>Transfer Money</h2>
+        <form class="form form-tansfer">
+          <input class="form-input form-input-to" type="text" />
+          <input class="form-input form-input-amount" type="number" />
+          <button class="form-btn form-btn-transfer">&rarr;</button>
+          <label class="form-label">Transfer to</label>
+          <label class="form-label">Amount</label>
+        </form>
+      </div>
+
+      <!-- LOAN -->
+      <div class="operation operation-loan">
+        <h2>Request Loan</h2>
+        <form class="form form-loan">
+          <input class="form-input form-loan-amount" type="number" />
+          <button class="form-btn form-btn-loan">&rarr;</button>
+          <label class="form-label form-label-loan">Amount</label>
+        </form>
+      </div>
+
+      <!-- CLOSE -->
+      <div class="operation operation-close">
+        <h2>Close Account</h2>
+        <form class="form form-close">
+          <input class="form-input form-input-username" type="text" />
+          <input class="form-input form-input-password" type="password" />
+          <button class="form-btn form-btn-close">&rarr;</button>
+          <label class="form-label">Confirm Username</label>
+          <label class="form-label">Confirm Password</label>
+        </form>
+      </div>
+
+      <!-- LOGOUT -->
+      <p class="logout-timer">
+        You will be logged out in <span class="timer">02:00</span>
+      </p>
+    </main>
+
+    <!-- =============FOOTER============= -->
+
+    <footer>
+      &copy; <span class="copyright-year">2022</span>,
+      <strong>Noor Bank</strong> by Tanisha Tanvin. All rights reserved.
+    </footer>
+  </body>
+</html>
