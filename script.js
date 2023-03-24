@@ -502,7 +502,7 @@ btnSort.addEventListener("click", function (e) {
 function logOut() {
   labelTimer.textContent = "";
 
-  let time = 120;
+  let time = 120; // 120s = 2min
 
   const clock = () => {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
